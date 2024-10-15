@@ -70,7 +70,7 @@ async function dumpRedisToPostgres() {
       for (const messageJson of messages) {
         const message = JSON.parse(messageJson);
         await client.query(
-          "INSERT INTO chat_messages (channel, username, message, timestamp) VALUES ($1, $2, $3, $4)",
+          "INSERT INTO twitch_chat_messages (channel, username, message, timestamp) VALUES ($1, $2, $3, $4)",
           [
             message.channel,
             message.username,

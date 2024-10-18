@@ -40,6 +40,15 @@ twitchClient.on("message", async (channel, tags, message, self) => {
     timestamp: new Date().toISOString(),
   };
 
+  // Only save the message to Redis if it is exactly "1" or "2"
+  if (message === "1" || message === "2") {
+    // Save message to Redis
+    await redisClient.lPush("chat_messages", JSON.stringify(chatMessage));
+    console.log(`Saved message "${message}" from ${tags.username} to Redis`);
+  } else {
+    console.log(`Ignored message "${message}" from ${tags.username}`);
+  }
+
   // Save message to Redis
   await redisClient.lPush("chat_messages", JSON.stringify(chatMessage));
 });
